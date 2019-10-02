@@ -140,7 +140,8 @@ module ElFinder
       end
 
       if target.file?
-        command_not_implemented
+        @response[:file] = target.fullpath
+        @response[:send_file] = true
       elsif target.directory?
         @response[:cwd] = cwd_for(target)
         @response[:cdc] = target.children.
