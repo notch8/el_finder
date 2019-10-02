@@ -71,7 +71,13 @@ the defaults.
 
     headers.merge!(h)
 
-    render (r.empty? ? {:nothing => true} : {:text => r.to_json}), :layout => false
+    if r.empty?
+      (render :nothing => true)
+    elsif r[:send_file]
+      send_file(r[:file])
+    else
+      render :json => r, :layout => false
+    end
   end
 ```
 
